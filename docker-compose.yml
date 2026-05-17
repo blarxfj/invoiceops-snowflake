@@ -1,0 +1,26 @@
+services:
+  invoice_ops_frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+
+  invoice_ops_backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+
+  invoice_ops_router:
+    build:
+      context: ./router
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - invoice_ops_frontend
+      - invoice_ops_backend
