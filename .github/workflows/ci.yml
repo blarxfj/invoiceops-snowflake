@@ -101,7 +101,7 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
 
       - name: Install deps
-        run: npm --prefix frontend ci --ignore-scripts
+        run: npm --prefix frontend ci
 
       - name: Run tests with coverage
         run: npm --prefix frontend test -- --run --coverage

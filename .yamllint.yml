@@ -1,4 +1,7 @@
 extends: default
+ignore: |
+  frontend/node_modules
+  synthetic/node_modules
 rules:
   line-length:
     max: 120
