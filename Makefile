@@ -5,7 +5,7 @@
 setup:
 	pip install -r backend/requirements-dev.txt
 	pip install -r synthetic/requirements.txt
-	npm --prefix frontend ci
+	npm --prefix frontend install
 	pre-commit install
 	@echo "Setup complete. Copy .env.example to .env and fill in your values."
 

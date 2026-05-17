@@ -1,0 +1,44 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Target environment"
+        required: true
+        type: choice
+        options:
+          - dev
+          - prod
+      service:
+        description: "Service to deploy"
+        required: true
+        type: choice
+        options:
+          - frontend
+          - backend
+          - router
+          - all
+
+jobs:
+  deploy:
+    name: Deploy ${{ inputs.service }} to ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Placeholder — deploy not yet wired
+        run: |
+          echo "not implemented yet — see project-pack.md Part 5"
+          echo "Will be wired to the Snowflake image registry in week 1"
+          echo "after day-2 de-risking succeeds."
+          echo ""
+          echo "Service:     ${{ inputs.service }}"
+          echo "Environment: ${{ inputs.environment }}"
+          echo ""
+          echo "Steps this job will perform once implemented:"
+          echo "  1. docker login to SNOWFLAKE_REGISTRY"
+          echo "  2. docker build --platform=linux/amd64 -t <image>:<sha>"
+          echo "  3. docker tag + docker push"
+          echo "  4. snow sql -q \"ALTER SERVICE ... FROM SPECIFICATION_FILE\""

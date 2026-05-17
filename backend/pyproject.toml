@@ -1,0 +1,16 @@
+[project]
+name = "invoiceops-backend"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "flask==3.1.0",
+    "snowflake-connector-python==3.14.0",
+    "gunicorn==23.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.11.0",
+    "pytest>=8.3.0",
+    "pytest-cov>=6.0.0",
+]

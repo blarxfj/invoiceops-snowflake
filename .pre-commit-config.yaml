@@ -1,0 +1,64 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: check-json
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.4
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: https://github.com/hadolint/hadolint
+    rev: v2.12.1-beta
+    hooks:
+      - id: hadolint-docker
+
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+        args: [-c, .yamllint.yml]
+
+  - repo: https://github.com/sqlfluff/sqlfluff
+    rev: 3.3.0
+    hooks:
+      - id: sqlfluff-lint
+        args: [--dialect, snowflake]
+
+  - repo: local
+    hooks:
+      - id: eslint
+        name: eslint
+        language: system
+        entry: npm --prefix frontend run lint
+        types_or: [ts, tsx]
+        pass_filenames: false
+
+      - id: prettier-check
+        name: prettier (check)
+        language: system
+        entry: npm --prefix frontend run format:check
+        types_or: [ts, tsx, css, json]
+        pass_filenames: false
+
+      - id: pytest-smoke
+        name: pytest smoke tests
+        language: python
+        entry: pytest tests/backend -x -q
+        pass_filenames: false
+        always_run: true
+        additional_dependencies: ["pytest>=8.3.0"]
+
+      - id: vitest-smoke
+        name: vitest smoke tests
+        language: system
+        entry: npm --prefix frontend test -- --run
+        pass_filenames: false
+        always_run: true
